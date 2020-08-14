@@ -19,8 +19,8 @@
    <h3 style="color:white; font-size: 20px;margin-left: 20px"> {{Session::get('uname')}}</h3>
    <hr>
   <a href="{{url('/')}}/welcome">BACK</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
+   <a href="network">NETWORKS</a> 
+ <a href="nf">NEWSFEED</a> 
   <a href="{{url('/')}}/logout">LOGOUT</a>
 </div>
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>

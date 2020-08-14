@@ -285,7 +285,7 @@ class Main extends Controller
        $rid=$r->id;
        $session=$r->session()->get('uid');
 
-        $j=DB::table('friends')->where('reciver_id','=',$rid)->where("sender_id","=",$session)->delete();
+        $j=DB::table('friends')->where('reciver_id','=',$rid)->where("sender_id","=",$session)->orwhere('reciver_id','=',$session)->where("sender_id","=",$rid)->delete();
      
 
              return redirect('details/'.$rid); 
@@ -535,7 +535,9 @@ class Main extends Controller
 
        public function nf(Request $r){
 
-         $obj1=App\pic::all();
+         //$obj1=App\pic::all();
+          $obj1=App\pic::inRandomOrder()->get();
+         // $obj1=App\pic::all()->random(1)->first();
 
          $w=array('row1'=>$obj1);
 

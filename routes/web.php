@@ -30,7 +30,7 @@ Route::post('/picupload','Main@picupload');
 Route::get('/delete/{id}','Main@delete');
 
 //..........search...................................
-Route::get('/search','Main@sview');
+//Route::get('/search','Main@sview');
 Route::post('/search','Main@search');
 
 //----------------------details----------------------------

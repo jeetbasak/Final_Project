@@ -9,7 +9,7 @@
 <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 <style type="text/css">
   body {
-     background: url('https://static-communitytable.parade.com/wp-content/uploads/2014/03/rethink-target-heart-rate-number-ftr.jpg') fixed;
+     background: url('https://www.desktopbackground.org/download/800x600/2014/12/02/865110_rainbow-full-screen-hd-wallpaper-best-backgrounds-hd-free_2560x1440_h.jpg') fixed;
     background-size: cover;
 }
 
@@ -42,11 +42,11 @@
 <body>
 
 @if(Session::has('msg'))
-<strong style="margin-left: 600px">{{Session::get('msg')}}</strong> 
+<strong style="margin-left: 600px; background-color: red; font-size: 20px" >{{Session::get('msg')}}</strong> 
 @endif
 
 <div class="container">
-            <form class="form-horizontal hi" role="form" action="logincheck" method="post">
+            <form class="form-horizontal hi" role="form" action="logincheck" method="post" style="background-color: violet !important; border-radius: 50px">
               @csrf
                 <h2>LOGIN</h2>
                
@@ -65,7 +65,7 @@
                 </div>
 
                 <input type="submit" class="btn btn-primary btn-block" value="Login">
-                <a href="{{url('/')}}" class="btn-block">NEW USER.. DO REGESTER</a>
+                <a href="{{url('/')}}" class="btn-block" style="color: black">NEW USER.. DO REGESTER</a>
             </form> <!-- /form -->
         </div> <!-- ./container -->
 

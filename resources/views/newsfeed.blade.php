@@ -11,7 +11,7 @@
 	<style type="text/css">
   body {
      
-      background-image: url('https://mk0omfourop3d6at17y.kinstacdn.com/wp-content/uploads/grapes.jpg');
+      background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg');
     background-size: cover;
      background-repeat: no-repeat;
   background-attachment: fixed;
@@ -44,6 +44,10 @@ background-color:darkmagenta;
 	background-color:cyan;
 	font-weight: 900;
 }
+.hr{
+border: 1px solid orange;
+
+}
 </style>
 </head>
 <body>
@@ -72,32 +76,96 @@ background-color:darkmagenta;
 
 	<div class="container-fluid">
 		
-                      <!-- end of 1st foreach(row) -->
-
-
-
-
-
-
-
-
-
-
+                  
 
       <!-----------------start-------------Uploded picture means gallery on main page --------------------- ---------- -------- -->
 			
-					<div ><!-- start of 2nd foreach (row1) -->
+					<div ><!-- start of 1st foreach (row1) -->
 						@foreach($row1 as $r1)
-						<div class="col-md-3">
-							<div class="row" style="margin-bottom: 10px">
-					              {{$r1->id}}
-					<img src="{{url('/')}}/upldimg/{{$r1->image}}" style="width:340px;height: 300px; "  data-toggle="modal" 
-					data-target="#pic{{$r1->id}}" >
 
+
+ <?php  
+
+$n=DB::table('user')->where('id','=',$r1->sid)->get();
+
+  ?>
+
+
+                 
+						<div class="col-md-12">
+              @foreach($n as $p)
+
+             <span> <h5 style="color: black; margin-left: 100px;font-weight: 900;font-size: 40px">{{$p->name}}</h5>
+               <img src="{{url('/')}}/pic/{{$p->image}}" style="width:80px;height: 50px; border-radius: 360px ;margin-right: 750px;margin-left: 50px" ></span>
+							<div class="row" style="margin-bottom: 10px">
+					   
+				<a href="{{url('/')}}/upldimg/{{$r1->image}}">	<img src="{{url('/')}}/upldimg/{{$r1->image}}" style="width:380px;height: 400px; margin-right: 750px"  data-toggle="modal"data-target="#pic{{$r1->id}}" ></a>
 					</div>
 
-               <!--------end--------- ------------------Uploded picture on main page --------------------- ---------- -------- -->
-				
+               <!--------end--------- ------------------SHOW picture on main page --------------------- ---------- -------- -->
+
+
+
+
+
+
+
+<!--       --------START------------LIKE OPERATION START IN THE PAGE====------------------------------------------------------ -->
+				<div>
+      
+<?php 
+$session=Session::get('uid');
+// counting of like for the perticular pic and session
+$l=DB::table('likes')->where('picid','=',$r1->id)->where("sid","=",$session)->get(); //session is comes from controller detail fun
+$cnt=count($l);
+ 
+ //counting part end
+?>
+
+
+       <form action="http://localhost/piclara/like" method="post" id=lk{{$r1->id}}>
+         @csrf
+        <input type="hidden" name="picid"  value="{{$r1->id}}"><!-- id of that pic in value -->
+
+
+
+                     
+                          <!-- --------THE LIKE BUTTON WITH ID OF PERTICULAR PIC------->
+
+                          @if($cnt==0)
+  <span id="btn{{$r1->id}}">
+    <i class="glyphicon glyphicon-star-empty" style="color: black;margin-top: 20px;font-size: 30px;margin-left: 330px;" 
+     
+     onclick="like('{{$r1->id}}')" ></i>
+ </span>
+    
+                         @endif
+
+                          @if($cnt>0)
+       <span id="btn{{$r1->id}}">             
+    <i class="glyphicon glyphicon-star" style="color: blue;margin-top: 20px;font-size: 30px;margin-left: 330px;" 
+     
+     onclick="removelike('{{$r1->id}}')" ></i>
+        </span>
+   
+                         @endif
+
+               <!-----------------------  now count the already total likes --------------->
+                          <?php
+
+            $alredyliked = DB::table('likes')->where("picid","=",$r1->id)->get();
+            //print_r($cnt);
+            $cn1=count($alredyliked);
+            ?>
+
+                        <span id="sl{{$r1->id}}">{{$cn1}}</span>
+               <!----------------------  end of count the total likes --------------->
+     </form>    
+        </div>
+        <!-------- --------END------------LIKE OPERATION END IN THE PAGE---------------------------------------------- -->
+
+        <hr class="hr">
+          @endforeach
 
 
 
@@ -122,69 +190,7 @@ background-color:darkmagenta;
 
                   <!----------END----------ONLY PICTURE AND ID SHOW COMPLETED------------------ -->
 
-
-
-
-
-
-
-
-
 <!--       --------START------------LIKE OPERATION START WITHIN THE MODAL before modal footer--------------------------------- -->
-
-<?php 
-$session=Session::get('uid');
-// counting of like for the perticular pic and session
-$l=DB::table('likes')->where('picid','=',$r1->id)->where("sid","=",$session)->get(); //session is comes from controller detail fun
-$cnt=count($l);
- 
- //counting part end
-?>
-
-
-       <form action="http://localhost/piclara/like" method="post" id=lk{{$r1->id}}>
-	       @csrf
-	      <input type="hidden" name="picid"  value="{{$r1->id}}"><!-- id of that pic in value -->
-
-
-
-                     
-                          <!-- --------THE LIKE BUTTON WITH ID OF PERTICULAR PIC------->
-
-                          @if($cnt==0)
-	<span id="btn{{$r1->id}}">
-		<i class="glyphicon glyphicon-star-empty" style="color: white;margin-top: 20px;font-size: 30px;margin-left: 40px;" 
-     
-     onclick="like('{{$r1->id}}')" ></i>
- </span>
-    
-                         @endif
-
-                          @if($cnt>0)
-       <span id="btn{{$r1->id}}">             
-		<i class="glyphicon glyphicon-star" style="color: blue;margin-top: 20px;font-size: 30px;margin-left: 40px;" 
-     
-     onclick="removelike('{{$r1->id}}')" ></i>
-        </span>
-   
-                         @endif
-
-               <!-----------------------  now count the total likes --------------->
-
-                          <?php
-
-						$alredyliked = DB::table('likes')->where("picid","=",$r1->id)->get();
-						//print_r($cnt);
-						$cn1=count($alredyliked);
-						?>
-
-                        <span id="sl{{$r1->id}}">{{$cn1}}</span>
-               <!----------------------  end of count the total likes --------------->
-
-    <!--  <input type="submit" name=""> -->
-     </form>
-
-
 <!--       --------END------------LIKE OPERATION END WITHIN THE MODAL before modal footer--------------------------------- -->
 
         </div>
@@ -197,9 +203,10 @@ $cnt=count($l);
 
   </div><!----------------------------------------------- modal BODY end -------------------------------------------------->
 					</div>
+     
 					@endforeach
 					</div>
-					<!-- end of 2nd foreach (row1) -->
+					<!-- end of 1st foreach (row1) -->
 
 
 	        </div>
@@ -223,7 +230,7 @@ success:function(res){
 
 
 
-$('#btn'+id).html("<i class='glyphicon glyphicon-star' style='color: blue;margin-top: 20px;font-size: 30px;margin-left: 40px' onclick='removelike("+id+")' ></i>");
+$('#btn'+id).html("<i class='glyphicon glyphicon-star' style='color: blue;margin-top: 20px;font-size: 30px;margin-left: 330px;' onclick='removelike("+id+")' ></i>");
  //$("#btn"+id).html("<i class='fas fa-heart' style='font-size:20px;color:red' onclick='removelike("+id+")' ></i>");
 //now counting the total likes
  $("#sl"+id).html(res);
@@ -252,7 +259,7 @@ data:$('#lk'+id).serialize(),  // id of that pic
 success:function(res){
 
 //alert('deleted '+res);
-$('#btn'+id).html("<i class='glyphicon glyphicon-star-empty' style='color: white;margin-top: 20px;font-size: 30px;margin-left: 40px; ' onclick='like("+id+")'></i>");
+$('#btn'+id).html("<i class='glyphicon glyphicon-star-empty' style='color: black;margin-top: 20px;font-size: 30px;margin-left: 330px; ' onclick='like("+id+")'></i>");
 $("#sl"+id).html(res);
 //star with double court and in between use single coute
 

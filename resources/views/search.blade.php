@@ -31,6 +31,9 @@ direction: ltr;
   
           <ul class="navbar-nav mr-auto">
            <li>
+
+
+
             <form action="search" method="post" class="ltr">
               @csrf
               <input type="text" name="search" style="background-color:   powderblue" >
@@ -38,22 +41,34 @@ direction: ltr;
 
             </form>
          
+
+
+
+         
           <form class="form-inline my-2 my-md-0"> </form>
       </div>
   </nav>
   <div id="wrapper" class="toggled">
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
+        
           <ul class="sidebar-nav">
-              <li class="sidebar-brand"> <a href="#"> Start Bootstrap </a> </li>
-              <li> <a href="{{url('/')}}/photo">PHOTOS</a> </li>
-              <li> <a href="#">Shortcuts</a> </li>
-              <li> <a href="#">Overview</a> </li>
-              <li> <a href="#">Events</a> </li>
-              <li> <a href="#">About</a> </li>
+              <li class="sidebar-brand"> <a href="welcome"> HOME </a> </li>
+              <li> <a href="photo">PHOTOS</a> </li>
+              <?php  
+              $ruid=Session::get('uid');
+
+              $cntmsg = DB::table('chats')->where('reciver_id', $ruid)->where('isread',0)->get(); 
+
+              ?>
+              <li> <a href="chat"><span class="badge badge-pill badge-danger" style="text-indent:0 !important;  "><?php echo count($cntmsg); ?></span>  MESSANGER </a> </li>
+              <li> <a href="friendlist">FRIEND LIST</a> </li>
+              <li> <a href="network">NETWORKS</a> </li>
+              <li> <a href="nf">NEWSFEED</a> </li>
               <li> <a href="#">Services</a> </li>
-              <li> <a href="{{url('/')}}/logout">LOGOUT</a> </li>
+              <li> <a href="logout">LOGOUT</a> </li>
           </ul>
+    
       </div> <!-- /#sidebar-wrapper -->
       <!-- Page Content -->
       <div id="page-content-wrapper">

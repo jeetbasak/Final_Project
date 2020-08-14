@@ -9,7 +9,7 @@
 <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 <style type="text/css">
   body {
-     background: url('https://static-communitytable.parade.com/wp-content/uploads/2014/03/rethink-target-heart-rate-number-ftr.jpg') fixed;
+     background: url('https://img.freepik.com/free-photo/blur-colored-texture_1160-889.jpg?size=626&ext=jpg') fixed;
     background-size: cover;
 }
 
@@ -42,7 +42,7 @@
 <body>
 
 <div class="container">
-            <form class="form-horizontal hi" role="form" action="submit" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal hi" role="form" action="submit" method="post" enctype="multipart/form-data" style="background-color:coral !important;border-radius: 50px">
               @csrf
                 <h2>Registration</h2>
                 <div class="form-group">
